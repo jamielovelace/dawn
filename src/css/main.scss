@@ -1,18 +1,8 @@
 /* ==========================================================================
-   INUITCSS
+   DAWN
    ========================================================================== */
 
-/**
- * inuitcss, by @csswizardry
- *
- * github.com/inuitcss | inuitcss.com
- */
 
-/**
- * This is an example inuitcss manifest file. DO NOT MODIFY THIS FILE DIRECTLY.
- * Instead, copy and paste it into your own CSS directory and make additions,
- * extensions, and modifications there.
- */
 
 /**
  * CONTENTS
@@ -70,8 +60,10 @@
  * Headings.............Reassigning our heading styles to helper classes.
  * Spacing..............Nudge bits of the DOM around with these spacing
  *                      classes.
+ * Displays.............Helper classes to display elements including breakpoint
+ *                      support.
+ * Hide.................Helper classes to hide content.
  * Print................Reset-like styles taken from the HTML5 Boilerplate.
- * Hide.................Helper classes to hide content
  */
 
 // SETTINGS
@@ -152,7 +144,7 @@ $inuit-offsets: true;
 @import "../../node_modules/inuitcss/utilities/utilities.widths";
 @import "../../node_modules/inuitcss/utilities/utilities.headings";
 @import "../../node_modules/inuitcss/utilities/utilities.spacing";
-@import "../../node_modules/inuitcss/utilities/utilities.print";
 // Responsive display - https://github.com/hayatbiralem/inuit-displays
 @import "../../node_modules/inuit-displays/inuit-displays";
 @import "../../node_modules/inuitcss/utilities/utilities.hide";
+@import "../../node_modules/inuitcss/utilities/utilities.print";
