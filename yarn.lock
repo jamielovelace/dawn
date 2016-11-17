@@ -2005,7 +2005,7 @@ inuit-displays@^0.1.14:
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/inuit-displays/-/inuit-displays-0.1.14.tgz#4d6f9538d0ae7fb4558514fb352aec5f0b86eec5"
 
-inuitcss@^6.0.0-beta.4:
+inuitcss:
   version "6.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/inuitcss/-/inuitcss-6.0.0-beta.4.tgz#34b8e3b11e2fd31dee5d0c695b052c907bdd9346"
   dependencies:
