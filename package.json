@@ -35,7 +35,4 @@
     "url": "https://github.com/jamielovelace/dawn/issues"
   },
   "homepage": "https://github.com/jamielovelace/dawn#readme",
-  "dependencies": {
-    "inuitcss": "^6.0.0-beta.4"
-  }
 }
