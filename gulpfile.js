@@ -15,9 +15,23 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var pug = require('gulp-pug');
 var uglify = require('gulp-uglify');
+var svgSprite = require('gulp-svg-sprite');
 
 
-
+var svgConfig = {
+  mode: {
+    symbol: { // symbol mode to build the SVG
+      dest: 'sprite', // destination foldeer
+      sprite: 'sprite.svg', //sprite name
+      prefix: '.svg--%s', // BEM-style prefix if styles rendered
+      example: true // Build sample page
+    }
+  },
+  svg: {
+    xmlDeclaration: false, // strip out the XML attribute
+    doctypeDeclaration: false // don't include the !DOCTYPE declaration
+  }
+};
 
 
 // BrowserSync reload
@@ -100,6 +114,22 @@ gulp.task('fonts', function() {
     .pipe(gulp.dest('dist/fonts'));
 });
 
+// Sprite svg
+gulp.task('sprite-page', function() {
+  return gulp.src('src/svg/**/*.svg')
+    .pipe(svgSprite(svgConfig))
+    .pipe(gulp.dest('src/svg'));
+});
+
+gulp.task('sprite-shortcut', function() {
+  return gulp.src('src/svg/**/*')
+    .pipe(gulp.dest('dist/svg'));
+});
+
+gulp.task('svg-sprite', 
+  gulp.series('sprite-page', 'sprite-shortcut')
+);
+
 // Clean Task
 gulp.task('clean', function() {
   return del(['dist']);
@@ -113,6 +143,7 @@ gulp.task('serve', function() {
   });
 });
 
+
 // Watch task
 gulp.task('watch', function() {
 	gulp.watch('src/css/**/*.scss', gulp.series('css'));
@@ -120,15 +151,12 @@ gulp.task('watch', function() {
 	gulp.watch(['src/**/*.pug', 'src/**/*.html', 'src/**/*.json'], gulp.series('html', reload));
 	gulp.watch('src/img/**/*', gulp.series('images'));
 	gulp.watch('src/fonts/**/*', gulp.series('fonts'));
+  gulp.watch(['src/svg/**/*.svg', '!src/svg/sprite/**/*'], gulp.series('svg-sprite'));
 });
-
-
-
-
 
 // Default Task
 gulp.task('default',
-  gulp.parallel('css', 'js', 'html', 'images', 'fonts')
+  gulp.parallel('css', 'js', 'html', 'images', 'fonts', 'svg-sprite')
 );
 
 // Dev task : build, serve and watch

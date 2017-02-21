@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/jamielovelace/dawn/issues"
   },
-  "homepage": "https://github.com/jamielovelace/dawn#readme"
+  "homepage": "https://github.com/jamielovelace/dawn#readme",
+  "dependencies": {
+    "gulp-svg-sprite": "^1.3.6"
+  }
 }
