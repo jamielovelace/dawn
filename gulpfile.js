@@ -16,6 +16,7 @@ var sass = require('gulp-sass');
 var pug = require('gulp-pug');
 var uglify = require('gulp-uglify');
 var svgSprite = require('gulp-svg-sprite');
+var rsp = require('remove-svg-properties').stream;
 
 
 var svgConfig = {
@@ -76,6 +77,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
   return gulp.src([
       // include vendor files here
+      // main js
       'src/js/**/*.js'
     ])
     .pipe(plumber())
@@ -117,6 +119,9 @@ gulp.task('fonts', function() {
 // Sprite svg
 gulp.task('sprite-page', function() {
   return gulp.src('src/svg/**/*.svg')
+    .pipe(rsp.remove({
+        properties: [rsp.PROPS_FILL]
+    }))
     .pipe(svgSprite(svgConfig))
     .pipe(gulp.dest('src/svg'));
 });
