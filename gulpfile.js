@@ -16,7 +16,9 @@ var sass = require('gulp-sass');
 var pug = require('gulp-pug');
 var uglify = require('gulp-uglify');
 var svgSprite = require('gulp-svg-sprite');
+var gutil = require('gulp-util');
 var rsp = require('remove-svg-properties').stream;
+var critical = require('critical').stream;
 
 
 var svgConfig = {
@@ -118,7 +120,7 @@ gulp.task('fonts', function() {
 
 // Sprite svg
 gulp.task('sprite-page', function() {
-  return gulp.src('src/svg/**/*.svg')
+  return gulp.src(['src/svg/**/*.svg', '!src/svg/sprite/**.*'])
     .pipe(rsp.remove({
         properties: [rsp.PROPS_FILL]
     }))
@@ -134,6 +136,21 @@ gulp.task('sprite-shortcut', function() {
 gulp.task('svg-sprite', 
   gulp.series('sprite-page', 'sprite-shortcut')
 );
+
+// Generate & Inline Critical-path CSS
+gulp.task('critical', function () {
+  return gulp.src('dist/index.html')
+    .pipe(critical({
+      base: 'dist/', 
+      inline: true, 
+      css: 'dist/css/main.min.css',
+      minify: true
+    }))
+    .on('error', function(err) { 
+      gutil.log(gutil.colors.red(err.message)); 
+    })
+    .pipe(gulp.dest('dist'));
+});
 
 // Clean Task
 gulp.task('clean', function() {
@@ -174,5 +191,5 @@ gulp.task('dev',
 
 // Build task : clean and build
 gulp.task('build',
-  gulp.series('clean', 'default')
+  gulp.series('clean', 'default', 'critical')
 );
